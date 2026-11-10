@@ -148,6 +148,25 @@ for (const [file, prefix, keys] of [
   }
 }
 
+// 4b. a token built from a themed value must be declared wherever a theme is set.
+//     var() inside a custom property resolves on the declaring element, so a
+//     border declared only on :root keeps the default ink when the theme sits on
+//     <body>, and night-yellow drew its borders and shadows in near-black.
+console.log('\nderived tokens must follow a theme set below :root');
+{
+  const css = readFileSync(join(ROOT, 'dist/hardstock.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+  const themed = /var\(--hs-(ink|canvas|accent|muted|on-fill|surface-[a-z]+)\)/;
+  const frozen = [];
+  for (const [, selector, body] of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    for (const [, name, value] of body.matchAll(/(--hs-[\w-]+)\s*:\s*([^;]+);/g)) {
+      if (!themed.test(value)) continue;
+      const sels = selector.split(',').map((s) => s.trim());
+      if (!sels.includes('[data-hs-theme]')) frozen.push(`${name} on ${selector.trim()}`);
+    }
+  }
+  frozen.length ? bad('dist/hardstock.css', `frozen to :root: ${frozen.join('; ')}`) : ok('borders and shadows restated on [data-hs-theme]');
+}
+
 // 5. every shipped theme must clear its contrast floors, and the report must
 //    actually cover the neutral surface. Nothing measured that pair for two
 //    releases, and both of the worst defects lived there.

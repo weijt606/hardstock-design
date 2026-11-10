@@ -1,5 +1,30 @@
 # Changelog
 
+## 1.2.0, public release (2026-11-10)
+
+The version number stays at 1.2.0. These changes landed between the 1.2.0 tag and the first
+public release.
+
+Changed:
+
+- **Palette retuned.** Every color value moved slightly: ink is now `#1c1915`, the paper
+  canvas `#faf5e8`, the yellow accent `#ffc72c`, and the categorical, semantic, tint and
+  dark-theme values shifted with them. All seven themes were re-checked against their
+  contrast floors (ink on canvas 16.09:1). The figures in `screens/` were regenerated.
+
+Fixed:
+
+- **Borders and shadows ignored a theme set on `<body>`.** `--hs-border*` and `--hs-shadow-*`
+  were declared only on `:root`, and a `var()` inside a custom property resolves on the
+  element that declares it, so they stayed in the default ink. With
+  `<body data-hs-theme="night-yellow">`, the setup the README shows, every border and offset
+  shadow was drawn near-black on the warm-black canvas and disappeared. They are now
+  declared on `:root, [data-hs-theme]`, so they follow whichever element carries the theme.
+  Light themes were unaffected because they share the same ink. The Tailwind build restates
+  its shadows inside each theme block and was not affected.
+- The self-test now fails if any token built from a themed value is declared without
+  `[data-hs-theme]`.
+
 ## 1.2.0 (2026-08-11)
 
 An independent QA pass, a red-team pass and a code review found defects in 1.1.0 that the

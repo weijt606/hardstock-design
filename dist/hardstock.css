@@ -48,15 +48,6 @@
   --hs-font-mono: "Space Mono", ui-monospace, monospace;
   --hs-font-body: ui-sans-serif, system-ui, sans-serif;
 
-  /* structure */
-  --hs-border: 2px solid var(--hs-ink);
-  --hs-border-thin: 1px solid var(--hs-ink);
-  --hs-border-heavy: 4px solid var(--hs-ink);
-  --hs-shadow-xs: 1px 1px 0 var(--hs-ink);
-  --hs-shadow-sm: 2px 2px 0 var(--hs-ink);
-  --hs-shadow-md: 4px 4px 0 var(--hs-ink);
-  --hs-shadow-lg: 6px 6px 0 var(--hs-ink);
-
   /* space */
   --hs-1: 4px;
   --hs-2: 8px;
@@ -75,6 +66,23 @@
 
   /* Translucent ink for overlays. Never a backdrop blur. */
   --hs-overlay: rgba(28, 25, 21, 0.4);
+}
+
+/* ------------------------------------------------------------- structure */
+/* Borders and shadows are built from the ink. A var() inside a custom property is
+   resolved on the element that declares it, so declaring these on :root alone would
+   freeze them to the default ink: a theme set on <body> would change the text and
+   leave every border and shadow in the light theme's color, invisible on night-yellow.
+   Restating them wherever a theme is set makes them follow that theme. */
+
+:root, [data-hs-theme] {
+  --hs-border: 2px solid var(--hs-ink);
+  --hs-border-thin: 1px solid var(--hs-ink);
+  --hs-border-heavy: 4px solid var(--hs-ink);
+  --hs-shadow-xs: 1px 1px 0 var(--hs-ink);
+  --hs-shadow-sm: 2px 2px 0 var(--hs-ink);
+  --hs-shadow-md: 4px 4px 0 var(--hs-ink);
+  --hs-shadow-lg: 6px 6px 0 var(--hs-ink);
 }
 
 /* ---------------------------------------------------------------- themes */
