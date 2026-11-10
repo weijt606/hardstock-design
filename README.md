@@ -3,9 +3,6 @@
 [![English](https://img.shields.io/badge/lang-English-ffc72c?style=flat-square&labelColor=1c1915)](README.md)
 [![简体中文](https://img.shields.io/badge/lang-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-faf5e8?style=flat-square&labelColor=1c1915)](README.zh-CN.md)
 [![License: MIT](https://img.shields.io/badge/license-MIT-faf5e8?style=flat-square&labelColor=1c1915)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.2.0-faf5e8?style=flat-square&labelColor=1c1915)](CHANGELOG.md)
-[![Node](https://img.shields.io/badge/node-%E2%89%A518-faf5e8?style=flat-square&labelColor=1c1915)](package.json)
-[![Dependencies](https://img.shields.io/badge/dependencies-0-faf5e8?style=flat-square&labelColor=1c1915)](package.json)
 [![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-faf5e8?style=flat-square&labelColor=1c1915)](SKILL.md)
 
 A neo-brutalist design language for screen and print, packaged so an AI agent can apply it

@@ -3,9 +3,6 @@
 [![English](https://img.shields.io/badge/lang-English-faf5e8?style=flat-square&labelColor=1c1915)](README.md)
 [![简体中文](https://img.shields.io/badge/lang-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-ffc72c?style=flat-square&labelColor=1c1915)](README.zh-CN.md)
 [![License: MIT](https://img.shields.io/badge/license-MIT-faf5e8?style=flat-square&labelColor=1c1915)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.2.0-faf5e8?style=flat-square&labelColor=1c1915)](CHANGELOG.md)
-[![Node](https://img.shields.io/badge/node-%E2%89%A518-faf5e8?style=flat-square&labelColor=1c1915)](package.json)
-[![Dependencies](https://img.shields.io/badge/dependencies-0-faf5e8?style=flat-square&labelColor=1c1915)](package.json)
 [![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-faf5e8?style=flat-square&labelColor=1c1915)](SKILL.md)
 
 一套面向屏幕与印刷的新粗野主义（neo-brutalist）设计语言，打包成 AI agent 可以稳定复现的形式：同一份需求，两次生成的结果一致。它属于新粗野主义这一公共设计流派，风格本身人人可用，这个仓库补上的是一份完整的规范。
