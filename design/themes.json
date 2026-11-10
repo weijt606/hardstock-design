@@ -1,0 +1,159 @@
+{
+  "$id": "hardstock/themes",
+  "description": "A theme swaps three variables only: canvas, ink, accent. The grammar (2px borders, zero-blur shadows, sharp corners, type pairing, spacing) never changes. This is what makes one design language produce many products.",
+  "swappable": [
+    "canvas",
+    "ink",
+    "surface.raised",
+    "surface.high",
+    "surface.plain",
+    "muted",
+    "accent"
+  ],
+  "frozen": [
+    "radius",
+    "shadow blur",
+    "border width",
+    "type pairing",
+    "motion easing",
+    "onFill"
+  ],
+  "themes": [
+    {
+      "id": "paper-yellow",
+      "name": "Paper Yellow",
+      "default": true,
+      "canvas": "#faf5e8",
+      "ink": "#1c1915",
+      "surfaceRaised": "#f4ecd8",
+      "surfaceHigh": "#fdf9ef",
+      "surfacePlain": "#ffffff",
+      "mutedText": "#56606b",
+      "accent": "#ffc72c",
+      "onFill": "#1c1915",
+      "fits": "Agent workspaces, developer tools, the house default"
+    },
+    {
+      "id": "night-yellow",
+      "name": "Night Yellow",
+      "dark": true,
+      "canvas": "#18150f",
+      "ink": "#f6eedb",
+      "surfaceRaised": "#252015",
+      "surfaceHigh": "#2f291c",
+      "surfacePlain": "#252015",
+      "mutedText": "#a8a08c",
+      "accent": "#ffc72c",
+      "onFill": "#1c1915",
+      "fits": "Dashboards, monitoring, anything that lives on a second monitor at night",
+      "note": "Warm black and warm white. Never #000, never cool grey. Text on the accent stays ink-dark (#1c1915)."
+    },
+    {
+      "id": "paper-pink",
+      "name": "Paper Pink",
+      "canvas": "#fff8f4",
+      "ink": "#1c1915",
+      "surfaceRaised": "#ffeef2",
+      "surfaceHigh": "#fffafb",
+      "surfacePlain": "#ffffff",
+      "mutedText": "#56606b",
+      "accent": "#ff8db4",
+      "onFill": "#1c1915",
+      "fits": "Creative tools, community products, anything that wants warmth without going soft",
+      "note": "The canvas carries a blush cast and surface.raised is pulled further toward the accent, so the theme reads pink at a glance rather than only at the buttons. Hard borders keep it from turning sweet."
+    },
+    {
+      "id": "paper-orange",
+      "name": "Paper Orange",
+      "canvas": "#faf5e8",
+      "ink": "#1c1915",
+      "surfaceRaised": "#f4ecd8",
+      "surfaceHigh": "#fdf9ef",
+      "surfacePlain": "#ffffff",
+      "mutedText": "#56606b",
+      "accent": "#ff9b5c",
+      "onFill": "#1c1915",
+      "fits": "Food, community, lifestyle, anything that wants more warmth than the default"
+    },
+    {
+      "id": "paper-cyan",
+      "name": "Paper Cyan",
+      "canvas": "#faf5e8",
+      "ink": "#1c1915",
+      "surfaceRaised": "#f4ecd8",
+      "surfaceHigh": "#fdf9ef",
+      "surfacePlain": "#ffffff",
+      "mutedText": "#56606b",
+      "accent": "#45c2ea",
+      "onFill": "#1c1915",
+      "fits": "Technical tools and infrastructure. Cool accent against warm paper reads as precise."
+    },
+    {
+      "id": "paper-lime",
+      "name": "Paper Lime",
+      "canvas": "#faf5e8",
+      "ink": "#1c1915",
+      "surfaceRaised": "#f4ecd8",
+      "surfaceHigh": "#fdf9ef",
+      "surfacePlain": "#ffffff",
+      "mutedText": "#56606b",
+      "accent": "#9fd06a",
+      "onFill": "#1c1915",
+      "fits": "Health, sustainability, finance with a positive frame"
+    },
+    {
+      "id": "cool-lavender",
+      "name": "Cool Lavender",
+      "canvas": "#f1f3f9",
+      "ink": "#17161e",
+      "surfaceRaised": "#ffffff",
+      "surfaceHigh": "#fafbfe",
+      "surfacePlain": "#ffffff",
+      "mutedText": "#56606b",
+      "accent": "#b3a4ec",
+      "onFill": "#1c1915",
+      "fits": "B2B and professional products. The only cool-canvas theme; use it when warm cream reads as too playful."
+    }
+  ],
+  "deriveNewTheme": {
+    "steps": [
+      "Pick an accent with a luminance high enough that ink text on it clears 4.5:1. Test before committing.",
+      "Keep canvas near-white with a hue cast (warm cream by default). Fully saturated canvases collapse the block structure.",
+      "Derive surface.raised as canvas nudged toward the accent hue by a few percent, surface.high as canvas nudged toward white.",
+      "Set surface.plain, the fill for inputs, secondary buttons and table bodies. On a light canvas it is white; on a dark canvas it must be a raised dark, never white, or every input turns into a glare panel.",
+      "Set muted, the secondary text color, and check it against the canvas. The default cool slate only works on a light canvas.",
+      "Keep ink a near-black that shares the canvas hue family. Warm canvas gets warm ink, cool canvas gets cool ink.",
+      "For a dark theme, invert canvas and ink but keep both warm or both cool. Never invert the accent, and never invert onFill: text on colored blocks stays dark.",
+      "Leave the categorical palette alone. It carries status and identity, not brand."
+    ],
+    "contrastFloor": {
+      "inkOnCanvas": 12.0,
+      "inkOnAccent": 4.5,
+      "mutedOnCanvas": 4.5,
+      "inkOnSurfacePlain": 7.0
+    },
+    "verify": "node tools/contrast.mjs [--dark] <canvas> <ink> <accent> [surface] to check a candidate, or node tools/contrast.mjs with no arguments to re-check every shipped theme. Pass --dark for a dark candidate, or the accent will be measured against the wrong ink."
+  },
+  "print": {
+    "note": "A theme in print is a paper stock plus one spot ink. See references/print.md section 3.",
+    "paperStock": {
+      "paper-yellow": "Warm uncoated cream, oatmeal or natural. Let the sheet carry the canvas color rather than flooding a tint.",
+      "night-yellow": "Does not translate cheaply. Flooding a dark sheet is expensive and dries badly. Prefer a dark uncoated stock with an opaque white or metallic ink, and treat it as a different job.",
+      "paper-pink": "Warm uncoated in blush or a natural cream. Do not chase the canvas with a flood tint; a lightly toned stock plus the spot does the work.",
+      "paper-orange": "Warm uncoated, same family as paper-yellow.",
+      "paper-cyan": "Warm uncoated. The cool accent against warm paper is the whole point.",
+      "paper-lime": "Warm uncoated or a natural recycled sheet.",
+      "cool-lavender": "The one theme that wants a cool or bright white sheet."
+    },
+    "spotStartingPoints": {
+      "note": "Starting points for a conversation with your printer. Confirm against a physical swatch book, never against a screen.",
+      "yellow": "Pantone 116 or 123",
+      "pink": "Pantone 210 or 211",
+      "cyan": "Pantone 306 or 2985",
+      "lime": "Pantone 366 or 373",
+      "orange": "Pantone 1565",
+      "lavender": "Pantone 2635 or 271"
+    },
+    "proof": "Anything with a saturated accent needs a physical proof on the actual stock before the run. Screens lie about exactly the colors this palette leans on."
+  }
+}

@@ -1,0 +1,45 @@
+/*
+ * Fixture: the same token declared once per theme, in both orders, plus a chain.
+ *
+ * A flat map keeps one declaration per name. Which one it keeps decides which
+ * violations disappear, so this file plants a bad value BEFORE its good twin and
+ * another bad value AFTER its good twin. A checker that resolves only the first
+ * candidate misses the second pair; one that resolves only the last misses the
+ * first. Only checking every declaration catches both.
+ *
+ * The chain is three levels deep so a shallow recursion limit shows up too, and
+ * the outline token is multi-valued so a resolver that stringifies the whole list
+ * ("none,0") shows up as well.
+ * tools/selftest.mjs asserts the counts. Never copy from this file.
+ */
+
+/* bad first, good second */
+[data-hs-theme="night"] { --early-corner: 12px; }
+:root { --early-corner: 0; }
+
+/* good first, bad second */
+:root { --late-shadow: 4px 4px 0 #1c1915; }
+[data-hs-theme="night"] { --late-shadow: 0 0 14px #1c1915; }
+
+:root {
+  --level-one: 12px;
+  --level-two: var(--level-one);
+  --level-three: var(--level-two);
+  --focus-ring: 2px solid #1c1915;
+}
+[data-hs-theme="night"] { --focus-ring: none; }
+
+/* the same token reached down two different branches: a shared visited-set makes
+   the second branch give up and return an unresolved value that looks legal */
+:root { --slot: 0; }
+[data-hs-theme="night"] { --slot: 9px; }
+:root { --pair: 2px var(--slot) 0 #1c1915; }
+[data-hs-theme="night"] { --pair: 2px 2px var(--slot) #1c1915; }
+.branching { box-shadow: var(--pair); }
+
+.early { border-radius: var(--early-corner); }
+.late { box-shadow: var(--late-shadow); }
+.deep { border-radius: var(--level-three); }
+.focus:focus { outline: var(--focus-ring); }
+
+@media (prefers-reduced-motion: reduce) { *, ::before, ::after { transition: none !important; } }

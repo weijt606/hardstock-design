@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fixture: the spellings that used to slip past</title>
+<!--
+  Every shape in this file was, at some point, a real bypass or a real false
+  positive. They live in their own fixture with exact counts so that one of them
+  dying cannot be masked by a sibling in the same rule filling the quota, which
+  is exactly how the Tailwind arbitrary-value regression survived.
+  tools/selftest.mjs asserts the counts below exactly. Never copy from this file.
+-->
+<style>
+  .longhand { border-top-left-radius: 12px; }            /* sharp-corners */
+  .logical { border-start-start-radius: 6px; }           /* sharp-corners */
+  .vendor { -webkit-border-radius: 4px; }                /* sharp-corners */
+  .outline-zero:focus { outline: 0px; }                  /* visible-focus */
+  .outline-transparent:focus { outline: transparent; }   /* visible-focus */
+  .outline-style:focus { outline-style: none; }          /* visible-focus */
+  .calc-blur { box-shadow: 2px 2px calc(4px * 2) #1c1915; } /* zero-blur-shadow error */
+  .unknown-blur { box-shadow: 2px 2px var(--from-another-file) #1c1915; } /* zero-blur-shadow warn */
+  .prop-scale:hover { scale: 1.2; }                      /* no-soft-motion */
+  .fn-scale:hover { transform: scaleX(1.4); }            /* no-soft-motion */
+  @media (prefers-reduced-motion: reduce) { * { transition: none; } }
+</style>
+</head>
+<body>
+  <div style='border-radius: 9px'>single-quoted inline style</div>
+  <div class="rounded-[10px]">Tailwind arbitrary radius</div>
+  <div class="rounded-ss-lg">Tailwind logical corner</div>
+  <div class="shadow-[4px_4px_10px_rgba(0,0,0,.4)]">Tailwind arbitrary shadow</div>
+  <div class="rounded-none shadow-brutal-sm">legal, must not fire</div>
+</body>
+</html>

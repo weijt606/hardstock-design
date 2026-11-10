@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fixture: every mechanical violation, on purpose</title>
+<!--
+  This file exists so the validator can be proven to fire. It is deliberately
+  wrong in every machine-checkable way, including the token-level and longhand
+  spellings that a naive regex misses. tools/selftest.mjs asserts each rule fires
+  at the expected level and count. Never copy anything from this file.
+-->
+<style>
+  :root {
+    --bad-radius: 14px;                                  /* sharp-corners, token */
+    --bad-shadow: 0 4px 12px rgba(0,0,0,.2);             /* zero-blur-shadow, token */
+  }
+  .literal { border-radius: 8px; }                       /* sharp-corners */
+  .longhand { border-top-left-radius: 12px; }            /* sharp-corners */
+  .logical { border-start-start-radius: 6px; }           /* sharp-corners */
+  .via-token { border-radius: var(--bad-radius); }       /* sharp-corners, deref */
+  .soft { box-shadow: 0 4px 12px rgba(0,0,0,.2); }       /* zero-blur-shadow */
+  .soft-token { box-shadow: var(--bad-shadow); }         /* zero-blur-shadow, deref */
+  .springy { transition: transform 0.4s cubic-bezier(.34,1.56,.64,1); }  /* no-soft-motion x2 */
+  .grow:hover { transform: scale(1.05); }                /* no-soft-motion */
+  .grow2:hover { scale: 1.2; }                           /* no-soft-motion */
+  .frosted { backdrop-filter: blur(12px); }              /* no-soft-motion */
+  .nofocus:focus { outline: none; }                      /* visible-focus */
+  .nofocus2:focus { outline: 0px; }                      /* visible-focus */
+  .brand { color: #3b82f6; }                             /* no-hardcoded-hex */
+  .btn--primary { background: #ffc72c; }                 /* one-accent, fill 1 */
+  .cta--primary { background: #45c2ea; }                 /* one-accent, fill 2 */
+  /* the motion opt-out block is missing on purpose         reduced-motion */
+</style>
+</head>
+<body>
+  <button class="rounded-full shadow-lg">Tailwind defaults</button>
+  <button class="rounded-[10px] shadow-[4px_4px_10px_rgba(0,0,0,.4)]">Tailwind arbitrary values</button>
+  <h1>Shipped 🎉</h1>
+</body>
+</html>

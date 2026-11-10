@@ -1,0 +1,162 @@
+/*! Hardstock v1.2.0. Tailwind CSS v4 theme.
+ *  For projects already on Tailwind. Paste into your global stylesheet.
+ *  Same tokens and the same seven themes as dist/hardstock.css.
+ *
+ *  Components read: bg-accent text-on-fill border-2 border-ink shadow-brutal-sm font-display
+ *
+ *  text-on-fill is not optional on a colored fill. --color-ink flips in dark
+ *  themes and --color-on-fill does not, so inheriting body color puts warm white
+ *  text on a yellow button.
+ */
+
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #1c1915;
+  --color-canvas: #faf5e8;
+  --color-raised: #f4ecd8;
+  --color-high: #fdf9ef;
+  --color-plain: #ffffff;
+  --color-muted: #56606b;
+  --color-accent: #ffc72c;
+
+  /* Text on any colored fill, in every theme including the dark one. Frozen. */
+  --color-on-fill: #1c1915;
+
+  --color-yellow: #ffc72c;
+  --color-pink: #ff8db4;
+  --color-lavender: #b3a4ec;
+  --color-cyan: #45c2ea;
+  --color-orange: #ff9b5c;
+  --color-lime: #9fd06a;
+  --color-coral: #f36a5a;
+  --color-sage: #92c4a0;
+
+  --color-tint-yellow: #fff0b3;
+  --color-tint-cyan: #daf2fb;
+  --color-tint-lime: #e6f2d3;
+  --color-tint-pink: #ffe2ec;
+
+  --color-success: #9fd06a;
+  --color-warning: #ffc72c;
+  --color-danger: #ff8db4;
+  --color-info: #45c2ea;
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+
+  --radius-none: 0px;
+
+  --shadow-brutal-xs: 1px 1px 0 #1c1915;
+  --shadow-brutal-sm: 2px 2px 0 #1c1915;
+  --shadow-brutal-md: 4px 4px 0 #1c1915;
+  --shadow-brutal-lg: 6px 6px 0 #1c1915;
+
+  --ease-brutal: cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-float: float 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+/* Preflight and any component library will try to reintroduce radii.
+   This is the one !important in the system, and it earns its place. */
+@layer base {
+  *, ::before, ::after { border-radius: 0 !important; }
+  [hidden] { display: none !important; }
+
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--color-accent); color: var(--color-on-fill); }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-canvas); }
+  ::-webkit-scrollbar-thumb { background: var(--color-ink); }
+  :focus-visible { outline: 2px solid var(--color-ink); outline-offset: 2px; }
+  a { color: var(--color-ink); text-underline-offset: 2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------------------------------------------------------------- themes */
+/* All seven, matching design/themes.json. Apply with <html data-hs-theme="...">.
+   tools/selftest.mjs asserts these stay in sync with the JSON. */
+
+[data-hs-theme="paper-yellow"] {
+  --color-canvas: #faf5e8;
+  --color-ink: #1c1915;
+  --color-raised: #f4ecd8;
+  --color-high: #fdf9ef;
+  --color-plain: #ffffff;
+  --color-muted: #56606b;
+  --color-accent: #ffc72c;
+}
+
+[data-hs-theme="night-yellow"] {
+  --color-canvas: #18150f;
+  --color-ink: #f6eedb;
+  --color-raised: #252015;
+  --color-high: #2f291c;
+  --color-plain: #252015;
+  --color-muted: #a8a08c;
+  --color-accent: #ffc72c;
+  /* Shadows carry a literal color in @theme, so the dark theme must restate
+     them. Borders flip automatically through border-ink. */
+  --shadow-brutal-xs: 1px 1px 0 #f6eedb;
+  --shadow-brutal-sm: 2px 2px 0 #f6eedb;
+  --shadow-brutal-md: 4px 4px 0 #f6eedb;
+  --shadow-brutal-lg: 6px 6px 0 #f6eedb;
+}
+
+[data-hs-theme="paper-pink"] {
+  --color-canvas: #fff8f4;
+  --color-ink: #1c1915;
+  --color-raised: #ffeef2;
+  --color-high: #fffafb;
+  --color-plain: #ffffff;
+  --color-muted: #56606b;
+  --color-accent: #ff8db4;
+}
+
+[data-hs-theme="paper-orange"] {
+  --color-canvas: #faf5e8;
+  --color-ink: #1c1915;
+  --color-raised: #f4ecd8;
+  --color-high: #fdf9ef;
+  --color-plain: #ffffff;
+  --color-muted: #56606b;
+  --color-accent: #ff9b5c;
+}
+
+[data-hs-theme="paper-cyan"] {
+  --color-canvas: #faf5e8;
+  --color-ink: #1c1915;
+  --color-raised: #f4ecd8;
+  --color-high: #fdf9ef;
+  --color-plain: #ffffff;
+  --color-muted: #56606b;
+  --color-accent: #45c2ea;
+}
+
+[data-hs-theme="paper-lime"] {
+  --color-canvas: #faf5e8;
+  --color-ink: #1c1915;
+  --color-raised: #f4ecd8;
+  --color-high: #fdf9ef;
+  --color-plain: #ffffff;
+  --color-muted: #56606b;
+  --color-accent: #9fd06a;
+}
+
+[data-hs-theme="cool-lavender"] {
+  --color-canvas: #f1f3f9;
+  --color-ink: #17161e;
+  --color-raised: #ffffff;
+  --color-high: #fafbfe;
+  --color-plain: #ffffff;
+  --color-muted: #56606b;
+  --color-accent: #b3a4ec;
+}

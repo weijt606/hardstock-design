@@ -1,0 +1,55 @@
+{
+  "name": "hardstock-design",
+  "version": "1.2.0",
+  "description": "A neo-brutalist design language packaged so an AI agent can apply it the same way twice. Machine-readable tokens, seven themes, component contracts, block archetypes, and a zero-dependency validator.",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/hardstock.css",
+  "files": [
+    "design",
+    "dist",
+    "examples",
+    "references",
+    "screens",
+    "tools",
+    "SKILL.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": "./dist/hardstock.css",
+    "./tailwind": "./dist/hardstock.theme.css",
+    "./tokens": "./design/tokens.json",
+    "./themes": "./design/themes.json",
+    "./components": "./design/components.json",
+    "./blocks": "./design/blocks.json",
+    "./rules": "./design/rules.json"
+  },
+  "bin": {
+    "hardstock-validate": "tools/validate.mjs"
+  },
+  "scripts": {
+    "test": "node tools/selftest.mjs",
+    "validate": "node tools/validate.mjs",
+    "contrast": "node tools/contrast.mjs",
+    "figures": "node tools/render-figures.mjs",
+    "serve": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "design-system",
+    "neo-brutalism",
+    "brutalist",
+    "css",
+    "design-tokens",
+    "tailwind",
+    "ai-agent",
+    "claude-skill"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weijt606/hardstock-design.git"
+  }
+}

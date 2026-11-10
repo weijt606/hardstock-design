@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffc72c">
+<title>Hardstock: landing page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../dist/hardstock.css">
+<style>
+  /* Page-level composition only. Every visual value comes from the token layer. */
+  .nav { border-bottom: var(--hs-border); background: var(--hs-canvas);
+    position: sticky; top: 0; z-index: 10; }
+  .nav__in { max-width: var(--hs-container); margin: 0 auto; padding: var(--hs-4) var(--hs-6);
+    display: flex; align-items: center; justify-content: space-between; gap: var(--hs-4); }
+  .brand { font-family: var(--hs-font-display); font-weight: 700; font-size: 20px;
+    display: flex; align-items: center; gap: var(--hs-2); }
+  .mark { width: 26px; height: 26px; background: var(--hs-accent); color: var(--hs-on-fill);
+    border: var(--hs-border); box-shadow: var(--hs-shadow-sm);
+    display: inline-flex; align-items: center; justify-content: center; font-size: 14px; }
+  .price { font-family: var(--hs-font-display); font-weight: 700; font-size: 48px; line-height: 1; }
+  .plan { display: flex; flex-direction: column; gap: var(--hs-4); }
+  .plan ul { list-style: none; display: flex; flex-direction: column; gap: var(--hs-2); font-size: 14px; }
+  .plan li { display: flex; gap: var(--hs-2); align-items: flex-start; }
+  .step { display: grid; grid-template-columns: 40px 1fr; gap: var(--hs-4); align-items: start; }
+  .step__n { width: 40px; height: 40px; border: var(--hs-border); box-shadow: var(--hs-shadow-sm);
+    background: var(--hs-surface-raised); display: grid; place-items: center;
+    font-family: var(--hs-font-display); font-weight: 700; }
+  .steps { display: flex; flex-direction: column; gap: var(--hs-6); max-width: 560px; }
+  .faq { display: flex; flex-direction: column; }
+  .faq details { border: var(--hs-border); margin-top: -2px; background: var(--hs-surface-plain); }
+  .faq summary { cursor: pointer; padding: var(--hs-3) var(--hs-4);
+    font-family: var(--hs-font-display); font-weight: 700; }
+  .faq details[open] summary { background: var(--hs-accent); color: var(--hs-on-fill);
+    border-bottom: var(--hs-border); }
+  .faq p { padding: var(--hs-4); }
+  .cta { text-align: center; background: var(--hs-surface-raised);
+    border: var(--hs-border); box-shadow: var(--hs-shadow-lg); padding: var(--hs-12) var(--hs-6); }
+  .tick { flex: 0 0 16px; margin-top: 3px; }
+</style>
+</head>
+<body data-hs-theme="paper-yellow">
+
+<!-- nav -->
+<header class="nav">
+  <div class="nav__in">
+    <span class="brand"><span class="mark" aria-hidden="true">H</span> Hardstock</span>
+    <nav class="hs-row">
+      <a class="hs-nav-item" href="#pricing">pricing</a>
+      <a class="hs-nav-item" href="#faq">faq</a>
+      <a class="hs-btn hs-btn--primary" href="#cta">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- block: hero -->
+  <section class="hs-container hs-hero">
+    <span class="hs-eyebrow">Design language, not a template</span>
+    <h1>Interfaces with <mark>weight</mark>.</h1>
+    <p>Hard borders, offset shadows, square corners. A design system your agents can read,
+       apply and verify without guessing what the style was supposed to be.</p>
+    <div class="hs-row" style="justify-content:center;margin-top:24px">
+      <a class="hs-btn hs-btn--primary" href="#cta">Read the spec</a>
+      <a class="hs-btn" href="#pricing">See plans</a>
+    </div>
+  </section>
+
+  <!-- block: stat strip -->
+  <section class="hs-strip">
+    <div><div class="hs-strip__n">0px</div><div class="hs-strip__l">Corner radius</div></div>
+    <div><div class="hs-strip__n">2px</div><div class="hs-strip__l">Border, everywhere</div></div>
+    <div><div class="hs-strip__n">0</div><div class="hs-strip__l">Runtime dependencies</div></div>
+    <div><div class="hs-strip__n">6</div><div class="hs-strip__l">Tested themes</div></div>
+  </section>
+
+  <!-- block: steps -->
+  <section class="hs-container hs-block">
+    <h2>How a page gets made</h2>
+    <div class="steps" style="margin-top:24px">
+      <div class="step">
+        <div class="step__n">1</div>
+        <div><h3>Tokens first</h3><p>Link the stylesheet. Never write a hex value inside a component.</p></div>
+      </div>
+      <div class="step">
+        <div class="step__n">2</div>
+        <div><h3>Blocks second</h3><p>Lay out bordered regions before styling anything inside them.</p></div>
+      </div>
+      <div class="step">
+        <div class="step__n">3</div>
+        <div><h3>Validate last</h3><p>Run the checker. Mechanical rules are not a matter of taste.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- block: pricing -->
+  <section class="hs-container hs-block" id="pricing">
+    <h2>Plans</h2>
+    <div class="hs-grid hs-grid--3" style="margin-top:24px">
+      <article class="hs-card plan">
+        <span class="hs-label" style="color:var(--hs-muted)">Solo</span>
+        <div class="price">$0</div>
+        <ul>
+          <li><svg class="tick" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg> Full token set</li>
+          <li><svg class="tick" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg> Validator</li>
+        </ul>
+        <button class="hs-btn" type="button">Start</button>
+      </article>
+
+      <article class="hs-card hs-card--raised plan">
+        <span class="hs-badge hs-badge--success" style="align-self:flex-start">Most used</span>
+        <span class="hs-label" style="color:var(--hs-muted)">Team</span>
+        <div class="price">$24</div>
+        <ul>
+          <li><svg class="tick" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg> Everything in Solo</li>
+          <li><svg class="tick" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg> Shared theme registry</li>
+        </ul>
+        <button class="hs-btn hs-btn--primary" type="button">Start</button>
+      </article>
+
+      <article class="hs-card plan">
+        <span class="hs-label" style="color:var(--hs-muted)">Studio</span>
+        <div class="price">$96</div>
+        <ul>
+          <li><svg class="tick" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg> Everything in Team</li>
+          <li><svg class="tick" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg> Custom theme derivation</li>
+        </ul>
+        <button class="hs-btn" type="button">Start</button>
+      </article>
+    </div>
+  </section>
+
+  <!-- block: faq -->
+  <section class="hs-container hs-block" id="faq">
+    <h2>Questions</h2>
+    <div class="faq" style="margin-top:24px">
+      <details open>
+        <summary>Can I use it with Tailwind?</summary>
+        <p>Yes. Import <code>dist/hardstock.theme.css</code> and write utilities against the tokens.</p>
+      </details>
+      <details>
+        <summary>Is there a dark theme?</summary>
+        <p>One, and it is warm black rather than grey. Set <code>data-hs-theme="night-yellow"</code>.</p>
+      </details>
+      <details>
+        <summary>Why no rounded corners at all?</summary>
+        <p>Because a single rounded corner reads as a different language, and the page splits.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- block: cta -->
+  <section class="hs-container hs-block" id="cta">
+    <div class="cta">
+      <h2>Hand it to an agent and get the same page twice.</h2>
+      <a class="hs-btn hs-btn--primary" href="#" style="margin-top:24px">Read the protocol</a>
+    </div>
+  </section>
+</main>
+
+<footer class="hs-container hs-block">
+  <p class="hs-label" style="color:var(--hs-muted)">Hardstock, MIT licensed</p>
+</footer>
+
+</body>
+</html>

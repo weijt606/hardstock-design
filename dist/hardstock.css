@@ -1,0 +1,475 @@
+/*! Hardstock v1.2.0. A neo-brutalist design language for agent workspaces and the web.
+ *  MIT licensed. Drop-in, zero dependency, no build step.
+ *  Tokens: design/tokens.json  Themes: design/themes.json  Rules: design/rules.json
+ *
+ *  Usage:
+ *    <link rel="stylesheet" href="hardstock.css">
+ *    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+ *    <body data-hs-theme="paper-yellow">
+ */
+
+/* ---------------------------------------------------------------- tokens */
+
+:root {
+  /* palette */
+  --hs-ink: #1c1915;
+  --hs-canvas: #faf5e8;
+  --hs-surface-raised: #f4ecd8;
+  --hs-surface-high: #fdf9ef;
+  --hs-surface-plain: #ffffff;
+  --hs-muted: #56606b;
+  --hs-accent: #ffc72c;
+  --hs-on-fill: #1c1915;
+
+  /* categorical */
+  --hs-yellow: #ffc72c;
+  --hs-pink: #ff8db4;
+  --hs-lavender: #b3a4ec;
+  --hs-cyan: #45c2ea;
+  --hs-orange: #ff9b5c;
+  --hs-lime: #9fd06a;
+  --hs-coral: #f36a5a;
+  --hs-sage: #92c4a0;
+
+  /* tints */
+  --hs-tint-yellow: #fff0b3;
+  --hs-tint-cyan: #daf2fb;
+  --hs-tint-lime: #e6f2d3;
+  --hs-tint-pink: #ffe2ec;
+
+  /* semantic */
+  --hs-success: var(--hs-lime);
+  --hs-warning: var(--hs-yellow);
+  --hs-danger: var(--hs-pink);
+  --hs-info: var(--hs-cyan);
+
+  /* type */
+  --hs-font-display: "Space Grotesk", system-ui, sans-serif;
+  --hs-font-mono: "Space Mono", ui-monospace, monospace;
+  --hs-font-body: ui-sans-serif, system-ui, sans-serif;
+
+  /* structure */
+  --hs-border: 2px solid var(--hs-ink);
+  --hs-border-thin: 1px solid var(--hs-ink);
+  --hs-border-heavy: 4px solid var(--hs-ink);
+  --hs-shadow-xs: 1px 1px 0 var(--hs-ink);
+  --hs-shadow-sm: 2px 2px 0 var(--hs-ink);
+  --hs-shadow-md: 4px 4px 0 var(--hs-ink);
+  --hs-shadow-lg: 6px 6px 0 var(--hs-ink);
+
+  /* space */
+  --hs-1: 4px;
+  --hs-2: 8px;
+  --hs-3: 12px;
+  --hs-4: 16px;
+  --hs-6: 24px;
+  --hs-8: 32px;
+  --hs-12: 48px;
+  --hs-16: 64px;
+  --hs-container: 64rem;
+
+  /* motion */
+  --hs-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --hs-dur: 0.15s;
+  --hs-dur-fast: 0.1s;
+
+  /* Translucent ink for overlays. Never a backdrop blur. */
+  --hs-overlay: rgba(28, 25, 21, 0.4);
+}
+
+/* ---------------------------------------------------------------- themes */
+/* A theme swaps canvas, ink, the surfaces, muted and accent. Nothing else moves.
+   Every block restates every value rather than leaning on the :root defaults, so
+   one block is a complete theme and a partial block cannot masquerade as one.
+   tools/selftest.mjs asserts these stay in sync with design/themes.json. */
+
+[data-hs-theme="paper-yellow"] {
+  --hs-canvas: #faf5e8;
+  --hs-ink: #1c1915;
+  --hs-surface-raised: #f4ecd8;
+  --hs-surface-high: #fdf9ef;
+  --hs-surface-plain: #ffffff;
+  --hs-muted: #56606b;
+  --hs-accent: #ffc72c;
+}
+
+[data-hs-theme="night-yellow"] {
+  --hs-canvas: #18150f;
+  --hs-ink: #f6eedb;
+  --hs-surface-raised: #252015;
+  --hs-surface-high: #2f291c;
+  --hs-surface-plain: #252015;
+  --hs-muted: #a8a08c;
+  --hs-accent: #ffc72c;
+  /* Text on a colored fill stays dark, even here. */
+  --hs-on-fill: #1c1915;
+}
+
+[data-hs-theme="paper-pink"] {
+  --hs-canvas: #fff8f4;
+  --hs-ink: #1c1915;
+  --hs-surface-raised: #ffeef2;
+  --hs-surface-high: #fffafb;
+  --hs-surface-plain: #ffffff;
+  --hs-muted: #56606b;
+  --hs-accent: #ff8db4;
+}
+
+[data-hs-theme="paper-orange"] {
+  --hs-canvas: #faf5e8;
+  --hs-ink: #1c1915;
+  --hs-surface-raised: #f4ecd8;
+  --hs-surface-high: #fdf9ef;
+  --hs-surface-plain: #ffffff;
+  --hs-muted: #56606b;
+  --hs-accent: #ff9b5c;
+}
+
+[data-hs-theme="paper-cyan"] {
+  --hs-canvas: #faf5e8;
+  --hs-ink: #1c1915;
+  --hs-surface-raised: #f4ecd8;
+  --hs-surface-high: #fdf9ef;
+  --hs-surface-plain: #ffffff;
+  --hs-muted: #56606b;
+  --hs-accent: #45c2ea;
+}
+
+[data-hs-theme="paper-lime"] {
+  --hs-canvas: #faf5e8;
+  --hs-ink: #1c1915;
+  --hs-surface-raised: #f4ecd8;
+  --hs-surface-high: #fdf9ef;
+  --hs-surface-plain: #ffffff;
+  --hs-muted: #56606b;
+  --hs-accent: #9fd06a;
+}
+
+[data-hs-theme="cool-lavender"] {
+  --hs-canvas: #f1f3f9;
+  --hs-ink: #17161e;
+  --hs-surface-raised: #ffffff;
+  --hs-surface-high: #fafbfe;
+  --hs-surface-plain: #ffffff;
+  --hs-muted: #56606b;
+  --hs-accent: #b3a4ec;
+}
+
+/* ------------------------------------------------------------ base layer */
+/* The six lines nobody remembers to port. Ship them before any component. */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; border-radius: 0; }
+/* Author display rules outrank the UA sheet, so a component that sets display
+   would otherwise render while still marked hidden. */
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+
+body {
+  background: var(--hs-canvas);
+  color: var(--hs-ink);
+  font-family: var(--hs-font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--hs-accent); color: var(--hs-on-fill); }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--hs-canvas); }
+::-webkit-scrollbar-thumb { background: var(--hs-ink); }
+
+:focus-visible { outline: 2px solid var(--hs-ink); outline-offset: 2px; }
+
+a { color: var(--hs-ink); text-underline-offset: 2px; }
+
+h1, h2, h3, h4 { font-family: var(--hs-font-display); font-weight: 700; }
+h1 { font-size: 48px; line-height: 1; }
+h2 { font-size: 30px; line-height: 1.2; }
+h3 { font-size: 20px; line-height: 1.4; }
+mark { background: var(--hs-accent); color: var(--hs-on-fill); padding: 0 6px; }
+
+img, svg, video { max-width: 100%; }
+svg { stroke-linecap: round; stroke-linejoin: round; }
+
+@keyframes hs-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes hs-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ------------------------------------------------------------- utilities */
+
+.hs-container { max-width: var(--hs-container); margin: 0 auto; padding: 0 var(--hs-6); }
+.hs-display { font-family: var(--hs-font-display); }
+.hs-mono { font-family: var(--hs-font-mono); }
+.hs-muted { color: var(--hs-muted); }
+.hs-label {
+  font-family: var(--hs-font-mono); font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em; line-height: 1;
+}
+.hs-rule { border: 0; border-top: var(--hs-border); }
+.hs-block { padding: var(--hs-12) 0; }
+.hs-stack { display: flex; flex-direction: column; gap: var(--hs-4); }
+.hs-row { display: flex; align-items: center; gap: var(--hs-3); }
+
+/* --------------------------------------------------------------- button */
+
+.hs-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--hs-2);
+  font-family: var(--hs-font-display); font-size: 14px; font-weight: 700;
+  padding: var(--hs-3) var(--hs-6);
+  background: var(--hs-surface-plain); color: var(--hs-ink);
+  border: var(--hs-border); box-shadow: var(--hs-shadow-sm);
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  transition: transform var(--hs-dur-fast) var(--hs-ease), box-shadow var(--hs-dur-fast) var(--hs-ease);
+}
+.hs-btn:hover { transform: translate(2px, 2px); box-shadow: var(--hs-shadow-xs); }
+.hs-btn:active { transform: translate(2px, 2px); box-shadow: none; }
+.hs-btn[disabled], .hs-btn.is-disabled {
+  opacity: 0.5; cursor: not-allowed; box-shadow: none; transform: none;
+}
+/* Only the colored fills take on-fill. A neutral surface takes ink, otherwise a
+   dark theme paints dark text on a dark button. */
+.hs-btn--primary { background: var(--hs-accent); color: var(--hs-on-fill); }
+.hs-btn--danger { background: var(--hs-danger); color: var(--hs-on-fill); }
+.hs-btn--ghost { background: transparent; box-shadow: none; }
+.hs-btn--ghost:hover, .hs-btn--ghost:active { box-shadow: none; }
+.hs-btn--sm { font-size: 12px; padding: var(--hs-2) var(--hs-3); }
+
+/* ----------------------------------------------------------------- card */
+
+.hs-card {
+  background: var(--hs-surface-high); color: var(--hs-ink);
+  border: var(--hs-border); box-shadow: var(--hs-shadow-sm);
+  padding: var(--hs-6);
+}
+.hs-card--raised { background: var(--hs-surface-raised); }
+.hs-card--link { display: block; text-decoration: none;
+  transition: transform var(--hs-dur-fast) var(--hs-ease), box-shadow var(--hs-dur-fast) var(--hs-ease); }
+.hs-card--link:hover { transform: translate(-2px, -2px); box-shadow: var(--hs-shadow-md); }
+.hs-card__title { font-family: var(--hs-font-display); font-size: 20px; font-weight: 700; }
+
+/* ---------------------------------------------------------------- input */
+
+.hs-field { display: flex; flex-direction: column; gap: var(--hs-2); }
+.hs-field > label {
+  font-family: var(--hs-font-mono); font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.hs-input, .hs-select, textarea.hs-input {
+  background: var(--hs-surface-plain); color: var(--hs-ink);
+  border: var(--hs-border); padding: var(--hs-3) var(--hs-4);
+  font-family: var(--hs-font-body); font-size: 15px; width: 100%;
+}
+.hs-input::placeholder { color: var(--hs-muted); }
+.hs-input[aria-invalid="true"] { border-color: var(--hs-danger); }
+.hs-field__error { font-family: var(--hs-font-mono); font-size: 11px; color: var(--hs-ink); }
+/* Square chevron for select. Painted, not a pseudo-element, so it survives
+   `appearance: none` on every engine. */
+.hs-select {
+  -webkit-appearance: none; appearance: none; cursor: pointer; padding-right: var(--hs-8);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231c1915' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+}
+[data-hs-theme="night-yellow"] .hs-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23f6eedb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+
+/* Checkbox and radio are both squares. The checked mark is a painted square,
+   again avoiding pseudo-elements on replaced elements. */
+.hs-check {
+  width: 18px; height: 18px; flex: 0 0 18px; -webkit-appearance: none; appearance: none; cursor: pointer;
+  border: var(--hs-border); background-color: var(--hs-surface-plain);
+  background-image: linear-gradient(var(--hs-on-fill), var(--hs-on-fill));
+  background-repeat: no-repeat; background-position: center; background-size: 0 0;
+}
+.hs-check:checked { background-color: var(--hs-accent); background-size: 8px 8px; }
+
+/* Rectangular track, square knob, no pill anywhere. */
+.hs-toggle {
+  width: 44px; height: 24px; flex: 0 0 44px; -webkit-appearance: none; appearance: none; cursor: pointer;
+  border: var(--hs-border); background-color: var(--hs-surface-plain);
+  background-image: linear-gradient(var(--hs-ink), var(--hs-ink));
+  background-repeat: no-repeat; background-size: 16px 16px; background-position: 2px center;
+  transition: background-position var(--hs-dur) var(--hs-ease),
+              background-color var(--hs-dur) var(--hs-ease);
+}
+/* The knob takes its color from whatever it currently sits on: the neutral track
+   when off, the success fill when on. Pinning it to either one makes it vanish in
+   the other state under a dark theme. */
+.hs-toggle:checked {
+  background-color: var(--hs-success);
+  background-image: linear-gradient(var(--hs-on-fill), var(--hs-on-fill));
+  background-position: 22px center;
+}
+
+/* Windows high contrast strips background-image, which would erase the checked
+   state of both controls. */
+@media (forced-colors: active) {
+  .hs-check:checked, .hs-toggle:checked { forced-color-adjust: none; outline: 2px solid CanvasText; }
+}
+
+/* ---------------------------------------------------------------- badge */
+
+.hs-badge {
+  display: inline-flex; align-items: center; gap: var(--hs-1);
+  border: var(--hs-border); box-shadow: var(--hs-shadow-sm);
+  background: var(--hs-surface-plain); color: var(--hs-ink);
+  padding: var(--hs-1) var(--hs-2);
+  font-family: var(--hs-font-mono); font-size: 10px; font-weight: 700;
+  text-transform: uppercase; line-height: 1;
+  white-space: nowrap; flex-shrink: 0;
+}
+.hs-badge--success { background: var(--hs-success); color: var(--hs-on-fill); }
+.hs-badge--warning { background: var(--hs-warning); color: var(--hs-on-fill); }
+.hs-badge--danger  { background: var(--hs-danger); color: var(--hs-on-fill); }
+.hs-badge--info    { background: var(--hs-info); color: var(--hs-on-fill); }
+
+/* --------------------------------------------------------------- avatar */
+
+.hs-avatar {
+  width: 40px; height: 40px; flex: 0 0 40px; overflow: hidden;
+  border: var(--hs-border); box-shadow: var(--hs-shadow-sm);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--hs-cyan); color: var(--hs-on-fill);
+  font-family: var(--hs-font-display); font-weight: 700;
+}
+.hs-avatar--float { animation: hs-float 4s var(--hs-ease) infinite; }
+.hs-avatar--sm { width: 32px; height: 32px; flex-basis: 32px; font-size: 13px; }
+
+/* ------------------------------------------------------------------ nav */
+
+.hs-nav-item {
+  display: flex; align-items: center; gap: var(--hs-2);
+  font-family: var(--hs-font-mono); font-size: 14px;
+  padding: var(--hs-2) var(--hs-3); cursor: pointer;
+  color: var(--hs-ink); text-decoration: none;
+  border: 2px solid transparent;
+  transition: background var(--hs-dur-fast) var(--hs-ease);
+}
+.hs-nav-item:hover { background: var(--hs-surface-high); }
+.hs-nav-item.is-active {
+  background: var(--hs-accent); color: var(--hs-on-fill);
+  border: var(--hs-border); box-shadow: var(--hs-shadow-sm);
+}
+
+/* ---------------------------------------------------------------- table */
+
+.hs-table { width: 100%; border-collapse: collapse; border: var(--hs-border); }
+.hs-table th {
+  background: var(--hs-surface-raised); text-align: left;
+  font-family: var(--hs-font-mono); font-size: 11px; font-weight: 700; text-transform: uppercase;
+  padding: var(--hs-3) var(--hs-4); border-bottom: var(--hs-border);
+}
+.hs-table td { padding: var(--hs-3) var(--hs-4); border-top: var(--hs-border-thin); }
+.hs-table tbody tr:hover { background: var(--hs-surface-high); }
+
+/* ----------------------------------------------------------------- tabs */
+
+.hs-tabs { display: flex; }
+.hs-tab {
+  font-family: var(--hs-font-display); font-size: 14px; font-weight: 700;
+  padding: var(--hs-2) var(--hs-4); background: var(--hs-surface-plain); color: var(--hs-ink);
+  border: var(--hs-border); margin-right: -2px; cursor: pointer;
+}
+.hs-tab[aria-selected="true"] { background: var(--hs-accent); color: var(--hs-on-fill); box-shadow: var(--hs-shadow-sm); }
+
+/* ---------------------------------------------------------------- modal */
+
+.hs-overlay {
+  position: fixed; inset: 0; background: var(--hs-overlay);
+  display: grid; place-items: center; padding: var(--hs-6); z-index: 50;
+}
+.hs-modal {
+  width: min(640px, 90vw); max-height: 80vh; overflow: auto;
+  background: var(--hs-surface-plain); color: var(--hs-ink);
+  border: var(--hs-border); box-shadow: var(--hs-shadow-lg);
+}
+.hs-modal__head {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--hs-lavender); color: var(--hs-on-fill);
+  border-bottom: var(--hs-border); padding: var(--hs-3) var(--hs-4);
+  font-family: var(--hs-font-display); font-weight: 700;
+}
+.hs-modal__body { padding: var(--hs-6); }
+
+/* ---------------------------------------------------------- toast/tooltip */
+
+.hs-toast {
+  position: fixed; right: var(--hs-6); bottom: var(--hs-6); z-index: 60;
+  display: flex; align-items: center; gap: var(--hs-3);
+  background: var(--hs-info); color: var(--hs-on-fill);
+  border: var(--hs-border); box-shadow: var(--hs-shadow-md);
+  padding: var(--hs-3) var(--hs-4); font-size: 14px;
+}
+.hs-tooltip {
+  background: var(--hs-ink); color: var(--hs-canvas);
+  font-family: var(--hs-font-mono); font-size: 11px;
+  padding: var(--hs-1) var(--hs-2); box-shadow: var(--hs-shadow-xs);
+}
+
+/* ------------------------------------------------------------ app states */
+
+.hs-skeleton { background: var(--hs-surface-raised); border: var(--hs-border); height: 16px;
+  animation: hs-pulse 1s var(--hs-ease) infinite; }
+.hs-empty { display: flex; flex-direction: column; align-items: center; gap: var(--hs-4);
+  padding: var(--hs-16) var(--hs-6); text-align: center; }
+.hs-empty__title { font-family: var(--hs-font-display); font-size: 20px; font-weight: 700; }
+
+/* ---------------------------------------------------------- block: hero */
+
+.hs-hero { text-align: center; padding: var(--hs-16) 0 var(--hs-12); }
+.hs-hero h1 { font-size: 48px; line-height: 1; }
+.hs-hero p { color: var(--hs-muted); font-size: 18px; max-width: 560px; margin: var(--hs-6) auto 0; }
+.hs-eyebrow {
+  display: inline-block; background: var(--hs-lavender); color: var(--hs-on-fill);
+  border: var(--hs-border); box-shadow: var(--hs-shadow-sm);
+  padding: var(--hs-1) var(--hs-3); margin-bottom: var(--hs-6);
+  font-family: var(--hs-font-mono); font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+
+/* ---------------------------------------------------- block: stat strip */
+
+.hs-strip {
+  border-top: var(--hs-border); border-bottom: var(--hs-border);
+  background: var(--hs-surface-raised); padding: var(--hs-8) var(--hs-6);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--hs-6); text-align: center;
+}
+.hs-strip__n { font-family: var(--hs-font-display); font-size: 36px; font-weight: 700; line-height: 1; }
+.hs-strip__l { font-family: var(--hs-font-mono); font-size: 10px; font-weight: 700;
+  text-transform: uppercase; color: var(--hs-muted); margin-top: var(--hs-2); }
+
+/* ----------------------------------------------------------- block: grid */
+
+.hs-grid { display: grid; gap: var(--hs-6); grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.hs-grid--3 { grid-template-columns: repeat(3, 1fr); }
+
+/* ------------------------------------------------------ block: workspace */
+
+.hs-app { display: grid; grid-template-columns: 240px minmax(380px, 1fr); height: 100vh; }
+.hs-sidebar { background: var(--hs-surface-raised); border-right: var(--hs-border);
+  padding: var(--hs-4); overflow-y: auto; }
+.hs-main { display: flex; flex-direction: column; overflow: hidden; }
+.hs-topbar { border-bottom: var(--hs-border); background: var(--hs-canvas);
+  padding: var(--hs-4) var(--hs-6); display: flex; align-items: center;
+  justify-content: space-between; gap: var(--hs-4); }
+.hs-feed { flex: 1; min-height: 0; overflow-y: auto; padding: var(--hs-6);
+  display: flex; flex-direction: column; gap: var(--hs-6); }
+.hs-msg { display: flex; gap: var(--hs-3); }
+.hs-msg__name { font-family: var(--hs-font-display); font-weight: 700; font-size: 15px; }
+.hs-msg__time { font-family: var(--hs-font-mono); font-size: 10px; color: var(--hs-muted); }
+.hs-composer { border-top: var(--hs-border); padding: var(--hs-4) var(--hs-6);
+  display: flex; gap: var(--hs-3); }
+
+/* ---------------------------------------------------------- responsive */
+
+@media (max-width: 900px) {
+  .hs-app { grid-template-columns: 1fr; height: auto; }
+  .hs-sidebar { border-right: 0; border-bottom: var(--hs-border); }
+  .hs-grid--3 { grid-template-columns: 1fr; }
+  .hs-hero h1 { font-size: 36px; }
+}

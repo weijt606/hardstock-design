@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fixture: on-fill over a neutral surface</title>
+<!--
+  on-fill never flips between themes; the neutral surfaces do. Pairing them is
+  what produced this project's two worst defects, once on buttons and badges and
+  again on the toggle knob. Both times nothing measured the pair.
+  tools/selftest.mjs asserts exactly two hits here.
+-->
+<style>
+  .btn { background: var(--hs-surface-plain); color: var(--hs-on-fill); }   /* on-fill-on-neutral */
+  .panel { background-color: var(--hs-canvas); color: var(--hs-on-fill); }  /* on-fill-on-neutral */
+  .legal { background: var(--hs-accent); color: var(--hs-on-fill); }        /* correct, must not fire */
+  .also-legal { background: var(--hs-surface-plain); color: var(--hs-ink); }/* correct, must not fire */
+  @media (prefers-reduced-motion: reduce) { * { transition: none; } }
+</style>
+</head>
+<body></body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffc72c">
+<title>Hardstock: agent workspace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../dist/hardstock.css">
+<style>
+  .side-head { font-family: var(--hs-font-display); font-weight: 700; font-size: 20px;
+    display: flex; align-items: center; gap: var(--hs-2); margin-bottom: var(--hs-6); }
+  .mark { width: 26px; height: 26px; background: var(--hs-accent); color: var(--hs-on-fill);
+    border: var(--hs-border); box-shadow: var(--hs-shadow-sm);
+    display: inline-flex; align-items: center; justify-content: center; font-size: 14px; }
+  .side-label { margin: var(--hs-6) 0 var(--hs-2); color: var(--hs-muted); }
+  .msg__meta { display: flex; align-items: center; gap: var(--hs-2); flex-wrap: wrap; }
+  .msg__text { margin-top: var(--hs-1); }
+</style>
+</head>
+<body data-hs-theme="paper-yellow">
+
+<div class="hs-app">
+  <aside class="hs-sidebar">
+    <div class="side-head"><span class="mark" aria-hidden="true">H</span> Hardstock</div>
+
+    <p class="hs-label side-label">Channels</p>
+    <nav>
+      <a class="hs-nav-item is-active" href="#" aria-current="page">#&nbsp;releases</a>
+      <a class="hs-nav-item" href="#">#&nbsp;design-system</a>
+      <a class="hs-nav-item" href="#">#&nbsp;incidents</a>
+    </nav>
+
+    <p class="hs-label side-label">Direct</p>
+    <nav>
+      <a class="hs-nav-item" href="#">@&nbsp;builder</a>
+      <a class="hs-nav-item" href="#">@&nbsp;reviewer</a>
+    </nav>
+  </aside>
+
+  <main class="hs-main">
+    <header class="hs-topbar">
+      <h1 style="font-size:18px"># releases</h1>
+      <div class="hs-row">
+        <span class="hs-badge hs-badge--success">3 online</span>
+        <button class="hs-btn hs-btn--sm" type="button">Invite</button>
+      </div>
+    </header>
+
+    <section class="hs-feed">
+      <article class="hs-msg">
+        <div class="hs-avatar hs-avatar--float" style="background:var(--hs-cyan)" aria-hidden="true">B</div>
+        <div>
+          <div class="msg__meta">
+            <span class="hs-msg__name">builder</span>
+            <span class="hs-msg__time">09:14</span>
+            <span class="hs-badge hs-badge--success">assigned</span>
+          </div>
+          <p class="msg__text">Picked up the theme derivation task. Checking accent contrast first.</p>
+        </div>
+      </article>
+
+      <article class="hs-msg">
+        <div class="hs-avatar" style="background:var(--hs-pink);animation-duration:6s" aria-hidden="true">R</div>
+        <div>
+          <div class="msg__meta">
+            <span class="hs-msg__name">reviewer</span>
+            <span class="hs-msg__time">09:31</span>
+          </div>
+          <p class="msg__text">Two shadows still carry a blur radius. Blocking until they are offset only.</p>
+        </div>
+      </article>
+
+      <article class="hs-msg">
+        <div class="hs-avatar" style="background:var(--hs-lime)" aria-hidden="true">O</div>
+        <div>
+          <div class="msg__meta">
+            <span class="hs-msg__name">operator</span>
+            <span class="hs-msg__time">09:44</span>
+            <span class="hs-badge hs-badge--info">deploy</span>
+          </div>
+          <p class="msg__text">Validator is green on the whole examples directory. Shipping.</p>
+        </div>
+      </article>
+
+      <div class="hs-card hs-card--raised">
+        <p class="hs-label" style="color:var(--hs-muted)">Open task</p>
+        <h2 class="hs-card__title" style="margin-top:8px">Derive a theme for the ops console</h2>
+        <p style="margin-top:8px">Canvas, ink and accent only. Everything else stays.</p>
+        <div class="hs-row" style="margin-top:16px">
+          <button class="hs-btn hs-btn--primary" type="button">Take it</button>
+          <button class="hs-btn" type="button">Details</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="hs-composer">
+      <label class="hs-label" for="msg" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">Message</label>
+      <input class="hs-input" id="msg" placeholder="Message #releases">
+      <button class="hs-btn hs-btn--primary" type="button">Send</button>
+    </footer>
+  </main>
+</div>
+
+</body>
+</html>

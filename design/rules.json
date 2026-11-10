@@ -1,0 +1,207 @@
+{
+  "$id": "hardstock/rules",
+  "description": "The invariants. An agent generating a Hardstock surface must satisfy every error-level rule. tools/validate.mjs checks the ones marked machineCheckable.",
+  "invariants": [
+    {
+      "id": "sharp-corners",
+      "level": "error",
+      "machineCheckable": true,
+      "statement": "border-radius is 0 on every element, including avatars, toggles, radio inputs, pills and modals.",
+      "why": "One rounded corner reads as generic SaaS and drags the whole page with it.",
+      "detect": "any border-radius declaration with a non-zero value",
+      "fix": "Set it to 0. Add the global reset `*,::before,::after{border-radius:0}` so component libraries cannot leak defaults."
+    },
+    {
+      "id": "zero-blur-shadow",
+      "level": "error",
+      "machineCheckable": true,
+      "statement": "Every box-shadow has a blur radius of 0. Depth is displacement, never softness.",
+      "why": "A soft shadow is the single fastest way back to a template look.",
+      "detect": "box-shadow with a third length value that is not 0",
+      "fix": "Use shadow.xs / sm / md / lg from tokens.json."
+    },
+    {
+      "id": "ink-on-fill",
+      "level": "error",
+      "machineCheckable": false,
+      "statement": "Text on any colored fill is ink. Never muted grey, never white.",
+      "why": "The palette is high-luminance; grey on it fails contrast and looks washed.",
+      "fix": "color: var(--hs-ink) on every colored block, in light and dark themes alike.",
+      "note": "The general form needs eyes. Its most common mechanical form is checked as on-fill-on-neutral."
+    },
+    {
+      "id": "on-fill-on-neutral",
+      "level": "error",
+      "machineCheckable": true,
+      "statement": "A component never puts on-fill text on a neutral surface (canvas or any surface fill).",
+      "why": "on-fill is frozen across themes; the neutral surfaces are not. Pairing them paints dark text on a dark surface the moment a dark theme loads. This is the mechanical half of ink-on-fill, and it is the defect this project has shipped most often.",
+      "detect": "a declaration block setting color to an on-fill token together with a background resolving to a neutral surface token",
+      "fix": "Neutral surfaces take ink. on-fill belongs to the colored variants only."
+    },
+    {
+      "id": "one-accent",
+      "level": "error",
+      "machineCheckable": true,
+      "statement": "A page uses exactly one accent for primary actions and highlights. Other palette colors appear only as status or category, never as a second brand color.",
+      "why": "Two accents means neither is one.",
+      "detect": "more than one categorical color used on primary buttons or hero highlights",
+      "fix": "Pick one from themes.json. Move the rest to badges and avatars."
+    },
+    {
+      "id": "accent-is-not-semantic",
+      "level": "error",
+      "machineCheckable": false,
+      "statement": "The accent carries brand, not meaning. Success, warning, danger and info come from color.semantic.",
+      "fix": "Success is lime, danger is pink, info is cyan. Warning may reuse yellow only when yellow is not the accent."
+    },
+    {
+      "id": "no-nested-cards",
+      "level": "error",
+      "machineCheckable": false,
+      "statement": "No card inside a card, no stacked shadows. Regions are tiled and separated by hard borders.",
+      "why": "Brutalism partitions with lines, not with layers.",
+      "fix": "Flatten. Use a 2px rule or a border between sections of one block."
+    },
+    {
+      "id": "no-soft-motion",
+      "level": "error",
+      "machineCheckable": true,
+      "statement": "No bounce, no spring, no overshoot easing, no scale-up on hover, no blur or backdrop-filter transitions.",
+      "detect": "cubic-bezier with a control point outside [0,1] on the y axis, transform: scale() above 1, filter/backdrop-filter blur",
+      "fix": "Hover is translate plus a shadow step. Easing is cubic-bezier(0.4, 0, 0.2, 1), duration at most 0.15s."
+    },
+    {
+      "id": "no-emoji",
+      "level": "error",
+      "machineCheckable": true,
+      "statement": "No emoji in UI chrome, headings, buttons or badges.",
+      "why": "Emoji are rounded and multicolor. They fight an ink-and-hard-edge system.",
+      "fix": "Monoline SVG at 1.5 to 2px stroke, or an uppercase mono label. Geometric characters such as arrows and a multiplication sign are fine."
+    },
+    {
+      "id": "reduced-motion",
+      "level": "error",
+      "machineCheckable": true,
+      "statement": "A prefers-reduced-motion block disables float, pulse and every transform transition.",
+      "detect": "stylesheet with animations but no prefers-reduced-motion media query",
+      "fix": "@media (prefers-reduced-motion: reduce){*,::before,::after{animation:none!important;transition:none!important}}"
+    },
+    {
+      "id": "status-not-color-only",
+      "level": "error",
+      "machineCheckable": false,
+      "statement": "Colored status always carries a word or a monoline icon as well.",
+      "why": "Lime, pink and cyan are indistinguishable to a large share of colorblind users.",
+      "fix": "Badges read ONLINE, ERROR, INFO in uppercase mono next to the fill."
+    },
+    {
+      "id": "visible-focus",
+      "level": "error",
+      "machineCheckable": true,
+      "statement": ":focus-visible draws a 2px ink outline with 2px offset, globally, and is never removed.",
+      "fix": ":focus-visible{outline:2px solid var(--hs-ink);outline-offset:2px}"
+    },
+    {
+      "id": "real-interactive-elements",
+      "level": "error",
+      "machineCheckable": false,
+      "statement": "Clickable things are button or a elements. Overlays close on Escape and trap focus.",
+      "fix": "Replace div-with-onclick. Add keydown handling for Escape on every overlay."
+    },
+    {
+      "id": "no-hardcoded-hex",
+      "level": "warn",
+      "machineCheckable": true,
+      "statement": "Components reference tokens by CSS variable. Raw hex belongs in the token block only.",
+      "detect": "hex literal outside :root or @theme that is not in the token set"
+    },
+    {
+      "id": "narrow-screen-survival",
+      "level": "warn",
+      "machineCheckable": false,
+      "statement": "Multi-column layouts scroll horizontally rather than crush a column below usable width.",
+      "fix": "Give the main column minmax(380px, 1fr). Collapse secondary columns under 900px. Badges get white-space:nowrap and flex-shrink:0."
+    },
+    {
+      "id": "archetype-variety",
+      "level": "warn",
+      "machineCheckable": false,
+      "statement": "A long page mixes three to four block archetypes and repeats none more than twice.",
+      "why": "A page that is nothing but an icon-title-description grid is the strongest generated-content tell there is.",
+      "fix": "See blocks.json for the vocabulary."
+    }
+  ],
+  "mediumScope": {
+    "note": "The invariants above are written for screen. These ids have no meaning on paper and are dropped in print: everything else still applies.",
+    "screenOnly": [
+      "no-soft-motion",
+      "reduced-motion",
+      "visible-focus",
+      "real-interactive-elements",
+      "narrow-screen-survival",
+      "no-hardcoded-hex"
+    ]
+  },
+  "printInvariants": [
+    {
+      "id": "k-only-hairlines",
+      "level": "error",
+      "statement": "Hairline rules and small text print K-only, set to overprint.",
+      "why": "Four-color hairlines misregister and fringe. This language is built almost entirely from hairlines, so getting it wrong ruins the piece rather than one element.",
+      "fix": "Black channel only, overprint on. Never knockout a hairline."
+    },
+    {
+      "id": "rich-black-solids",
+      "level": "error",
+      "statement": "Large solid ink areas use a rich black. Small text and hairlines never sit on top of one.",
+      "why": "K-only solids read as washed grey next to real black; rich black under small text fringes on registration.",
+      "fix": "Around C40 M30 Y30 K100, confirmed with the printer."
+    },
+    {
+      "id": "drawn-shadows",
+      "level": "error",
+      "statement": "The offset shadow is a drawn shape in the same ink as its rule, never an application shadow effect.",
+      "why": "Effect-panel shadows rasterise with blur and force transparency flattening. Split inks destroy the register the offset depends on.",
+      "fix": "Duplicate the shape, offset it by the derived amount, place it behind, same ink."
+    },
+    {
+      "id": "rule-weight-floor",
+      "level": "error",
+      "statement": "Every rule weight is at or above the minimum for the printing process.",
+      "why": "Below the floor a hairline breaks up or vanishes on press.",
+      "fix": "See tokens.json print.minimumRuleWeight. Raise the rule rather than preserve the ratio."
+    },
+    {
+      "id": "trim-clearance",
+      "level": "error",
+      "statement": "Rules sit at least 5mm inside the trim, or run fully off a 3mm bleed. Never between.",
+      "why": "Trim tolerance is about 1mm, and the eye measures that gap against a parallel rule.",
+      "fix": "Move it in, or run it off the edge. There is no acceptable middle."
+    },
+    {
+      "id": "no-flattening-effects",
+      "level": "error",
+      "statement": "No gradients, transparency, blend modes or RGB left in the file.",
+      "fix": "Same discipline as the screen version, with worse consequences: these force flattening and shift color at RIP."
+    },
+    {
+      "id": "rederive-never-scale",
+      "level": "error",
+      "statement": "A layout moved to a new size is re-derived from the new body size, never scaled.",
+      "why": "Scaling preserves the ratios and silently walks the rule weight through the process minimum.",
+      "fix": "Set the new body size, recompute from tokens.json print.derivation."
+    },
+    {
+      "id": "physical-proof",
+      "level": "warn",
+      "statement": "Anything with a saturated accent gets a physical proof on the actual stock before the run.",
+      "why": "Screens misrepresent exactly the colors this palette leans on."
+    }
+  ],
+  "smellTests": [
+    "Screenshot it and squint. If it could be any generic SaaS product, the grammar has leaked.",
+    "Search the built CSS for 'radius' and 'blur'. Both should be absent or zero.",
+    "Count distinct accent fills on primary buttons. Should be one.",
+    "Tab through it. Every stop should be obvious."
+  ]
+}

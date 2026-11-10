@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fixture: legal Hardstock, must produce zero findings</title>
+<link rel="stylesheet" href="../../dist/hardstock.css">
+<style>
+  /* Everything here is legal, including the shapes that used to be false
+     positives. tools/selftest.mjs asserts this file reports nothing at all. */
+  :root { --local-shadow: 2px 2px 0 var(--hs-ink); }
+  .card { border-radius: 0; box-shadow: var(--local-shadow); }
+  .flat { border-radius: 0 0 0 0; }
+  .modern { box-shadow: 2px 2px 0 oklch(0.2 0.02 30); }
+  .mixed { box-shadow: 2px 2px 0 color-mix(in srgb, #1c1915 50%, transparent); }
+  .computed { box-shadow: calc(1px * 2) 2px 0 var(--hs-ink); }
+  .shrink:hover { transform: scale(0.98); }
+  .quick { transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1); }
+  .contrast-filter { filter: contrast(1.2); }
+  .focus-kept:focus-visible { outline: 2px solid var(--hs-ink); outline-offset: 2px; }
+  .quoted::after { content: "border-radius: 12px"; }
+  /* a comment mentioning border-radius: 8px and box-shadow: 0 4px 8px #000 */
+  .btn--primary { background: var(--hs-accent); }
+  /* A state variant may legitimately carry a different fill. It is the same
+     accent in a different state, not a second accent. */
+  .btn--primary:hover { background: var(--hs-tint-yellow); transform: translate(2px, 2px); }
+  @media (prefers-reduced-motion: reduce) { *, ::before, ::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+  <p>Design systems that avoid border-radius: 8px and box-shadow: 0 4px 12px rgba(0,0,0,.2) read as deliberate.</p>
+  <a href="#faded">an anchor whose id looks like a hex color</a>
+  <button class="rounded-none shadow-brutal-sm">Legal Tailwind classes</button>
+  <p>Geometric characters are fine: arrows and a multiplication sign.</p>
+</body>
+</html>

@@ -1,0 +1,144 @@
+{
+  "$id": "hardstock/blocks",
+  "description": "The page-level vocabulary. Components make elements; blocks make pages. An agent composing a page picks three to four archetypes from this list and alternates them, rather than repeating one grid.",
+
+  "composition": {
+    "rules": [
+      "Mix three to four archetypes on a long page.",
+      "Repeat a single archetype at most twice.",
+      "Every block is a tiled region separated by a 2px ink border or 48 to 64px of canvas. Never a card holding other cards.",
+      "Content converges to layout.containerMax (64rem) unless the block is deliberately full-bleed, such as the stat strip.",
+      "Open with hero or workspace. Close with cta or empty."
+    ],
+    "antiPattern": "A whole page of icon-plus-title-plus-description tiles. It is the loudest tell that nobody made a layout decision."
+  },
+
+  "archetypes": [
+    {
+      "id": "hero",
+      "purpose": "Open a marketing or landing page",
+      "structure": "mono eyebrow pill, display headline 48 to 72px with one word wrapped in an accent mark, one body paragraph, one primary and one secondary button",
+      "maxPerPage": 1,
+      "signature": "The accent <mark> highlight on a single word"
+    },
+    {
+      "id": "workspace",
+      "purpose": "App shell for tools, chat and agent consoles",
+      "structure": "sidebar (240px) with mono nav rows, top bar with title and status badge, scrolling main region, optional right detail column",
+      "maxPerPage": 1,
+      "responsive": "Main column gets minmax(380px, 1fr). Right column collapses under 900px. Sidebar becomes a drawer on mobile."
+    },
+    {
+      "id": "feed",
+      "purpose": "Messages, activity, comments, logs",
+      "structure": "rows of square avatar, display name, mono timestamp, optional status badge, body text",
+      "maxPerPage": 2
+    },
+    {
+      "id": "pricing",
+      "purpose": "Plan comparison",
+      "structure": "three columns, middle card on surface.raised with a mono pill and the accent CTA to carry the hierarchy",
+      "maxPerPage": 1
+    },
+    {
+      "id": "statStrip",
+      "purpose": "Break up a long page and give it rhythm",
+      "structure": "full-bleed band with 2px ink borders top and bottom, three or four columns of a large display number over a mono uppercase label",
+      "maxPerPage": 2
+    },
+    {
+      "id": "featureGrid",
+      "purpose": "Capability overview",
+      "structure": "auto-fill minmax(260px, 1fr) cards, each with a monoline icon, display title and body description",
+      "maxPerPage": 1,
+      "warning": "The most overused block in the set. If you use it, use it once."
+    },
+    {
+      "id": "comparisonTable",
+      "purpose": "Specs, plan matrices, feature-by-feature",
+      "structure": "hard-lined table, surface.raised header row in mono uppercase, 1px ink row separators",
+      "maxPerPage": 1,
+      "note": "Use this instead of a card grid whenever the content is genuinely tabular."
+    },
+    {
+      "id": "steps",
+      "purpose": "Process, onboarding, roadmap",
+      "structure": "numbered 2px-bordered squares connected by a vertical ink line, each with a display title and body text",
+      "maxPerPage": 1
+    },
+    {
+      "id": "faq",
+      "purpose": "Questions, objection handling",
+      "structure": "stacked 2px-bordered blocks, the expanded one gets an accent header band",
+      "maxPerPage": 1
+    },
+    {
+      "id": "logoWall",
+      "purpose": "Social proof",
+      "structure": "row of 2px-bordered squares holding monochrome marks, no drop shadows on the marks themselves",
+      "maxPerPage": 1
+    },
+    {
+      "id": "cta",
+      "purpose": "Close the page",
+      "structure": "centered block on surface.raised with 2px ink border and shadow.lg, one display sentence, one primary button",
+      "maxPerPage": 1
+    },
+    {
+      "id": "empty",
+      "purpose": "Zero-data state inside an app",
+      "structure": "centered monoline icon, one display sentence, optional mono hint, one primary button",
+      "maxPerPage": null
+    }
+  ],
+
+  "pageRecipes": {
+    "landing": ["hero", "statStrip", "featureGrid", "pricing", "faq", "cta"],
+    "product-tool": ["hero", "steps", "comparisonTable", "cta"],
+    "app-shell": ["workspace", "feed", "empty"],
+    "docs": ["hero", "steps", "faq"],
+    "dashboard": ["workspace", "statStrip", "comparisonTable"]
+  },
+
+  "printArchetypes": {
+    "note": "The archetypes above assume scrolling. These are the print equivalents. Same composition discipline: mix three or four across a multi-page piece, and let hard rules do the partitioning rather than nesting boxes. Measurements come from tokens.json print.derivation. Full guidance in references/print.md.",
+    "items": [
+      {
+        "id": "poster",
+        "structure": "One headline at 3 to 4.5 x body with a single word in an accent block, a mono metadata band ruled off at the foot, generous empty paper",
+        "discipline": "One accent, one idea. The empty paper is doing work, do not fill it."
+      },
+      {
+        "id": "editorialSpread",
+        "structure": "Rule-divided column grid, mono running heads, square-cropped images with a rule, micro-labels as captions",
+        "discipline": "Rules do the dividing, not white space alone."
+      },
+      {
+        "id": "card",
+        "purpose": "Invitations, announcements, business cards",
+        "structure": "One accent block carrying the key line, mono micro-labels for date and place, inner margin at 3 x body",
+        "discipline": "Restraint reads as expensive on a small piece."
+      },
+      {
+        "id": "specSheet",
+        "purpose": "Data cards, product specs, price lists",
+        "structure": "A hard-lined table",
+        "discipline": "The language's native form, and where it beats softer systems outright."
+      },
+      {
+        "id": "cover",
+        "structure": "Full-bleed accent field with an ink rule frame inset at least 5mm, title in display, everything else mono"
+      },
+      {
+        "id": "label",
+        "purpose": "Stickers, packaging labels",
+        "structure": "Square, one accent, uppercase mono, rule up to the die line minus clearance"
+      },
+      {
+        "id": "programme",
+        "purpose": "Menus, schedules, programmes",
+        "structure": "Ruled bands alternating canvas and accent tint, mono for prices and times, display for names"
+      }
+    ]
+  }
+}

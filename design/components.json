@@ -1,0 +1,140 @@
+{
+  "$id": "hardstock/components",
+  "description": "Component contracts. Each entry gives anatomy, chrome, states and the class shipped in dist/hardstock.css. Chrome is written as token references so the same spec ports to vanilla CSS, Tailwind or any component framework.",
+
+  "media": {
+    "scope": "screen",
+    "webOnly": ["states", "class", "motion", "required"],
+    "print": "Anatomy and chrome carry over to print once measurements are re-derived from tokens.json print.derivation. Every `states` field is meaningless on paper: there is no hover, focus, active or disabled. For print composition use blocks.json printArchetypes and references/print.md rather than this file."
+  },
+
+  "sharedChrome": {
+    "border": "border.default (2px solid ink)",
+    "radius": "0",
+    "shadow": "shadow.sm",
+    "textOnFill": "color.ink"
+  },
+
+  "components": {
+    "button": {
+      "class": "hs-btn",
+      "anatomy": "display font, 14px, weight 700, padding 12px 24px",
+      "chrome": "sharedChrome",
+      "variants": {
+        "primary": "background: accent",
+        "secondary": "background: surface.plain",
+        "ghost": "background: transparent, border only",
+        "danger": "background: semantic.danger"
+      },
+      "states": {
+        "hover": "translate(2px,2px), shadow to xs",
+        "active": "translate(2px,2px), shadow none, sits flat",
+        "focus": "ink outline 2px, offset 2px",
+        "disabled": "opacity .5, cursor not-allowed, shadow removed, border kept"
+      }
+    },
+    "card": {
+      "class": "hs-card",
+      "anatomy": "surface.raised or surface.plain fill, padding 24px",
+      "chrome": "sharedChrome",
+      "states": { "hover": "translate(-2px,-2px), shadow to md (only if the card is a link)" },
+      "constraint": "Never nest a card in a card. Split with a 2px rule instead."
+    },
+    "input": {
+      "class": "hs-input",
+      "anatomy": "surface.plain fill, padding 12px 16px, body font 15px",
+      "chrome": "sharedChrome minus shadow",
+      "states": {
+        "placeholder": "color.muted",
+        "focus": "ink outline 2px, offset 2px",
+        "invalid": "border color semantic.danger, message below in mono 11px",
+        "valid": "border color semantic.success"
+      },
+      "label": "mono 10px uppercase, above the field, never floating inside it"
+    },
+    "badge": {
+      "class": "hs-badge",
+      "anatomy": "inline-flex, padding 4px 8px, mono 10px weight 700 uppercase, line-height 1",
+      "chrome": "sharedChrome",
+      "variants": {
+        "success": "semantic.success fill + word",
+        "warning": "semantic.warning fill + word",
+        "danger": "semantic.danger fill + word",
+        "info": "semantic.info fill + word",
+        "neutral": "surface.plain fill"
+      },
+      "constraint": "Always carries a word. Fill alone is not a status."
+    },
+    "avatar": {
+      "class": "hs-avatar",
+      "anatomy": "square, 32 to 40px, overflow hidden, one categorical fill, display font initial",
+      "chrome": "sharedChrome",
+      "constraint": "Square. Not a circle, not a squircle.",
+      "decorative": "rotate(-3deg to 12deg) and float animation, in feeds and hero collages only"
+    },
+    "toggle": {
+      "class": "hs-toggle",
+      "anatomy": "rectangular track 44x24, square knob 18px with shadow.xs",
+      "chrome": "sharedChrome",
+      "states": { "on": "track fill semantic.success, knob at right" },
+      "constraint": "No pill track, no circular knob."
+    },
+    "checkboxRadio": {
+      "class": "hs-check",
+      "anatomy": "16 to 18px square, 2px ink border",
+      "constraint": "Radios are square too. Checked state fills with accent or cyan and draws an ink check or a solid square."
+    },
+    "select": {
+      "class": "hs-select",
+      "anatomy": "surface.plain, 2px ink border, sharp",
+      "menu": "2px ink border block with shadow.sm, option hover surface.raised, selected accent"
+    },
+    "table": {
+      "class": "hs-table",
+      "anatomy": "2px ink border around the whole table",
+      "header": "surface.raised fill, mono uppercase, 2px ink bottom border",
+      "row": "1px ink separator, hover surface.high",
+      "constraint": "A hard-lined grid. No zebra stripes on rounded cards."
+    },
+    "tabs": {
+      "class": "hs-tabs",
+      "anatomy": "row of abutting 2px-bordered blocks",
+      "states": { "active": "accent fill with shadow", "inactive": "surface.plain" },
+      "alternative": "Underline form: a 3px ink bar under the active label"
+    },
+    "modal": {
+      "class": "hs-modal",
+      "overlay": "rgba(28,25,21,.4), no backdrop blur",
+      "panel": "surface.plain or canvas, 2px ink border, shadow.lg, width min(640px, 90vw), max-height 80vh with internal scroll",
+      "header": "colored band (lavender by default) plus display title plus a close control top right",
+      "required": "Escape closes it, clicking the overlay closes it, focus is trapped inside"
+    },
+    "toast": {
+      "class": "hs-toast",
+      "anatomy": "bottom-right block, semantic fill, 2px ink border, shadow.md",
+      "motion": "enters and leaves on translateX, never fade-and-scale",
+      "required": "Auto-dismiss plus a manual close control"
+    },
+    "tooltip": {
+      "class": "hs-tooltip",
+      "anatomy": "ink fill with canvas text, mono 11px, shadow.xs, sharp, no arrow or a square-cut one"
+    },
+    "navRow": {
+      "class": "hs-nav-item",
+      "anatomy": "mono font, optional # or @ prefix",
+      "states": { "hover": "surface.raised fill", "active": "accent fill with 2px ink border and shadow.sm" },
+      "constraint": "Sidebar rows are not cards. Distinguish with fill, not with nesting."
+    },
+    "skeleton": {
+      "class": "hs-skeleton",
+      "anatomy": "surface.raised filled rectangle with 2px ink border",
+      "motion": "opacity pulse under 1s, disabled under reduced motion",
+      "constraint": "No spinner. A spinner is a circle."
+    },
+    "emptyState": {
+      "class": "hs-empty",
+      "anatomy": "centered monoline icon, one display sentence, optional mono hint, one primary button",
+      "constraint": "Never ship blank space. A blank region reads as broken."
+    }
+  }
+}

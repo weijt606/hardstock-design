@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffc72c">
+<title>Hardstock: components and themes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../dist/hardstock.css">
+<style>
+  .sec { padding: var(--hs-8) 0; border-bottom: var(--hs-border); }
+  .sec > h2 { font-size: 20px; margin-bottom: var(--hs-4); }
+  .wrap { display: flex; flex-wrap: wrap; gap: var(--hs-4); align-items: center; }
+  .swatch { border: var(--hs-border); box-shadow: var(--hs-shadow-sm); padding: var(--hs-4);
+    min-width: 140px; color: var(--hs-on-fill); }
+  .swatch code { font-family: var(--hs-font-mono); font-size: 11px; }
+  .themebar { position: sticky; top: 0; z-index: 20; background: var(--hs-canvas);
+    border-bottom: var(--hs-border); padding: var(--hs-3) var(--hs-6); }
+  @media (prefers-reduced-motion: reduce) { *, ::before, ::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body data-hs-theme="paper-yellow">
+
+<div class="themebar">
+  <div class="hs-container hs-row" style="justify-content:space-between;flex-wrap:wrap">
+    <strong class="hs-display">Hardstock components</strong>
+    <div class="hs-tabs" role="tablist" aria-label="Theme">
+      <button class="hs-tab" role="tab" aria-selected="true"  data-theme="paper-yellow">paper-yellow</button>
+      <button class="hs-tab" role="tab" aria-selected="false" data-theme="night-yellow">night-yellow</button>
+      <button class="hs-tab" role="tab" aria-selected="false" data-theme="paper-orange">paper-orange</button>
+      <button class="hs-tab" role="tab" aria-selected="false" data-theme="paper-cyan">paper-cyan</button>
+      <button class="hs-tab" role="tab" aria-selected="false" data-theme="paper-lime">paper-lime</button>
+      <button class="hs-tab" role="tab" aria-selected="false" data-theme="cool-lavender">cool-lavender</button>
+    </div>
+  </div>
+</div>
+
+<main class="hs-container">
+
+  <section class="sec">
+    <h2>Palette</h2>
+    <div class="wrap">
+      <div class="swatch" style="background:var(--hs-accent)"><strong>accent</strong><br><code>--hs-accent</code></div>
+      <div class="swatch" style="background:var(--hs-lime)"><strong>success</strong><br><code>--hs-lime</code></div>
+      <div class="swatch" style="background:var(--hs-pink)"><strong>danger</strong><br><code>--hs-pink</code></div>
+      <div class="swatch" style="background:var(--hs-cyan)"><strong>info</strong><br><code>--hs-cyan</code></div>
+      <div class="swatch" style="background:var(--hs-lavender)"><strong>category</strong><br><code>--hs-lavender</code></div>
+      <div class="swatch" style="background:var(--hs-orange)"><strong>category</strong><br><code>--hs-orange</code></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Buttons</h2>
+    <div class="wrap">
+      <button class="hs-btn hs-btn--primary" type="button">Primary</button>
+      <button class="hs-btn" type="button">Secondary</button>
+      <button class="hs-btn hs-btn--ghost" type="button">Ghost</button>
+      <button class="hs-btn hs-btn--danger" type="button">Danger</button>
+      <button class="hs-btn" type="button" disabled>Disabled</button>
+      <button class="hs-btn hs-btn--sm" type="button">Small</button>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Badges, avatars, tooltip</h2>
+    <div class="wrap">
+      <span class="hs-badge hs-badge--success">online</span>
+      <span class="hs-badge hs-badge--warning">pending</span>
+      <span class="hs-badge hs-badge--danger">failed</span>
+      <span class="hs-badge hs-badge--info">queued</span>
+      <span class="hs-badge">neutral</span>
+      <span class="hs-avatar" style="background:var(--hs-cyan)">A</span>
+      <span class="hs-avatar hs-avatar--sm" style="background:var(--hs-orange)">B</span>
+      <span class="hs-avatar hs-avatar--float" style="background:var(--hs-lavender)">C</span>
+      <span class="hs-tooltip">last run 4m ago</span>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Form controls</h2>
+    <div class="wrap" style="align-items:flex-start">
+      <div class="hs-field" style="min-width:220px">
+        <label for="name">Name</label>
+        <input class="hs-input" id="name" placeholder="builder">
+      </div>
+      <div class="hs-field" style="min-width:220px">
+        <label for="env">Environment</label>
+        <select class="hs-select" id="env"><option>staging</option><option>production</option></select>
+      </div>
+      <div class="hs-field" style="min-width:220px">
+        <label for="key">Key</label>
+        <input class="hs-input" id="key" value="not-a-key" aria-invalid="true">
+        <span class="hs-field__error">Must be 32 characters.</span>
+      </div>
+      <label class="hs-row"><input class="hs-check" type="checkbox" checked> Square checkbox</label>
+      <label class="hs-row"><input class="hs-toggle" type="checkbox" role="switch" checked> Square toggle</label>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Table</h2>
+    <table class="hs-table">
+      <thead><tr><th>Agent</th><th>Task</th><th>State</th></tr></thead>
+      <tbody>
+        <tr><td>builder</td><td>Extract tokens</td><td><span class="hs-badge hs-badge--success">done</span></td></tr>
+        <tr><td>reviewer</td><td>Audit shadows</td><td><span class="hs-badge hs-badge--warning">running</span></td></tr>
+        <tr><td>operator</td><td>Publish</td><td><span class="hs-badge hs-badge--danger">blocked</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="sec">
+    <h2>Cards, skeleton, empty state</h2>
+    <div class="hs-grid" style="margin-bottom:24px">
+      <a class="hs-card hs-card--link" href="#">
+        <h3 class="hs-card__title">Linked card</h3>
+        <p style="margin-top:8px">Lifts on hover. Nothing else in the system moves upward.</p>
+      </a>
+      <div class="hs-card hs-card--raised">
+        <h3 class="hs-card__title">Raised card</h3>
+        <p style="margin-top:8px">Fill from surface.raised, never nested inside another card.</p>
+      </div>
+      <div class="hs-card">
+        <div class="hs-stack">
+          <div class="hs-skeleton" style="width:60%"></div>
+          <div class="hs-skeleton"></div>
+          <div class="hs-skeleton" style="width:80%"></div>
+        </div>
+      </div>
+    </div>
+    <div class="hs-card">
+      <div class="hs-empty">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="16"/><path d="M3 9h18M8 4v16"/>
+        </svg>
+        <p class="hs-empty__title">No runs yet</p>
+        <p class="hs-muted">A blank region reads as broken. Say what is missing and offer a way out.</p>
+        <button class="hs-btn hs-btn--primary" type="button">Start a run</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="border-bottom:0">
+    <h2>Overlay</h2>
+    <button class="hs-btn hs-btn--primary" type="button" id="open">Open modal</button>
+  </section>
+</main>
+
+<div class="hs-overlay" id="overlay" hidden>
+  <div class="hs-modal" role="dialog" aria-modal="true" aria-labelledby="mt">
+    <div class="hs-modal__head">
+      <span id="mt">Confirm deploy</span>
+      <button class="hs-btn hs-btn--sm" type="button" id="close" aria-label="Close">X</button>
+    </div>
+    <div class="hs-modal__body">
+      <p>Translucent ink overlay, never a blurred backdrop. Escape closes it, clicking outside closes it.</p>
+      <div class="hs-row" style="margin-top:24px">
+        <button class="hs-btn hs-btn--primary" type="button">Deploy</button>
+        <button class="hs-btn" type="button" data-close>Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Theme switching: three variables move, the grammar does not.
+  const tabs = document.querySelectorAll('[data-theme]');
+  tabs.forEach((tab) => tab.addEventListener('click', () => {
+    document.body.dataset.hsTheme = tab.dataset.theme;
+    tabs.forEach((t) => t.setAttribute('aria-selected', String(t === tab)));
+  }));
+
+  const overlay = document.getElementById('overlay');
+  const open = () => { overlay.hidden = false; document.getElementById('close').focus(); };
+  const close = () => { overlay.hidden = true; document.getElementById('open').focus(); };
+  document.getElementById('open').addEventListener('click', open);
+  document.getElementById('close').addEventListener('click', close);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay || e.target.hasAttribute('data-close')) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !overlay.hidden) close(); });
+</script>
+</body>
+</html>
