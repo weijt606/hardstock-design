@@ -1,4 +1,4 @@
-# Hardstock
+# Hardstock Design
 
 [![English](https://img.shields.io/badge/lang-English-ffc72c?style=flat-square&labelColor=1c1915)](README.md)
 [![简体中文](https://img.shields.io/badge/lang-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-faf5e8?style=flat-square&labelColor=1c1915)](README.zh-CN.md)
