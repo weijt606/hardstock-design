@@ -1,7 +1,16 @@
 # Hardstock
 
+[![English](https://img.shields.io/badge/lang-English-ffc72c?style=flat-square&labelColor=1c1915)](README.md)
+[![简体中文](https://img.shields.io/badge/lang-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-faf5e8?style=flat-square&labelColor=1c1915)](README.zh-CN.md)
+[![License: MIT](https://img.shields.io/badge/license-MIT-faf5e8?style=flat-square&labelColor=1c1915)](LICENSE)
+[![Version](https://img.shields.io/badge/version-1.2.0-faf5e8?style=flat-square&labelColor=1c1915)](CHANGELOG.md)
+[![Node](https://img.shields.io/badge/node-%E2%89%A518-faf5e8?style=flat-square&labelColor=1c1915)](package.json)
+[![Dependencies](https://img.shields.io/badge/dependencies-0-faf5e8?style=flat-square&labelColor=1c1915)](package.json)
+[![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-faf5e8?style=flat-square&labelColor=1c1915)](SKILL.md)
+
 A neo-brutalist design language for screen and print, packaged so an AI agent can apply it
-the same way twice.
+the same way twice. It is a design language in the neo-brutalist tradition: the idiom is
+public, and what this repository adds is the specification.
 
 Warm paper canvas. One ink that draws every rule, every shadow and every word. Square
 corners with no exceptions. Depth from displacement instead of blur. One saturated accent.
@@ -13,12 +22,17 @@ Hardstock ships the taste as data: tokens, themes, component contracts and page-
 archetypes in JSON, a set of invariants an agent must satisfy, and a validator that fails
 the build on the nine of them a machine can check.
 
+## Quick start
+
 ```bash
 git clone https://github.com/weijt606/hardstock-design.git
 cd hardstock-design
 python3 -m http.server 8000   # then open /examples/components.html
-node tools/selftest.mjs       # proves the validator actually fires
+npm test                      # proves the validator actually fires
 ```
+
+The stylesheet needs nothing. The tools in `tools/` need Node 18 or later and have no
+dependencies, so there is no `npm install` step.
 
 ## Use it in a page
 
@@ -80,7 +94,7 @@ sidebar, which this language happens to be unusually good at.
 
 ## Use it with an agent
 
-This repository is also a [Claude Code skill](https://docs.claude.com/en/docs/claude-code/skills).
+This repository is also a [Claude Code skill](https://code.claude.com/docs/en/skills).
 `SKILL.md` at the root is the agent entry point.
 
 ```bash
@@ -146,6 +160,16 @@ A theme moves three variables: canvas, ink, accent. The grammar underneath does 
 That is what lets one language produce products that do not look like siblings.
 
 <img src="screens/themes.svg" alt="Every Hardstock theme, each a swap of canvas, ink and accent" width="100%">
+
+| Theme id | Canvas | Accent | Fits |
+| --- | --- | --- | --- |
+| `paper-yellow` (default) | warm cream | yellow | Agent workspaces, developer tools |
+| `night-yellow` | warm black | yellow | Dashboards, monitoring, night use |
+| `paper-pink` | blush paper | pink | Creative tools, community products |
+| `paper-orange` | warm cream | orange | Food, community, lifestyle |
+| `paper-cyan` | warm cream | cyan | Technical tools and infrastructure |
+| `paper-lime` | warm cream | lime | Health, sustainability, finance |
+| `cool-lavender` | cool paper | lavender | B2B and professional products |
 
 ```html
 <body data-hs-theme="night-yellow">
